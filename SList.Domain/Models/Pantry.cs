@@ -14,8 +14,6 @@ namespace SList.Domain.Models
         }
         public int Id { get; set; }
         public string Name { get; set; }
-        public int? IngredientId { get; set; }
-        public int? ApplianceId { get; set; }
         public int? UserId { get; set; }
         public virtual User User { get; set; }
         public virtual ICollection<Appliance> Appliances { get; set; }

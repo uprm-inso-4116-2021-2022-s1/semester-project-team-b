@@ -19,12 +19,9 @@ namespace SList.Domain.Models
         public int? ParentId { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
-
         public virtual Recipe Recipe { get; set; }
-        public virtual Forum IdNavigation { get; set; }
         public virtual Comment Parent { get; set; }
-        public virtual Forum Post { get; set; }
-        public virtual Recipe PostNavigation { get; set; }
+        public virtual Forum Forum { get; set; }
         public virtual User User { get; set; }
         public virtual ICollection<Comment> InverseParent { get; set; }
     }

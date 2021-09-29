@@ -7,10 +7,16 @@ namespace SList.Domain.Models
 {
     public partial class Appliance
     {
+        public Appliance()
+        {
+            Recipes = new HashSet<Recipe>();
+            Pantries = new HashSet<Pantry>();
+
+        }
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public virtual Recipe Recipe { get; set; }
-        public virtual Pantry Pantry { get; set; }
+        public virtual ICollection<Recipe> Recipes { get; set; }
+        public virtual ICollection<Pantry> Pantries { get; set; }
     }
 }
