@@ -3,10 +3,37 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SList.Domain.Migrations
 {
-    public partial class initial_migration : Migration
+    public partial class initial_migrations : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "appliances",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_appliances", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ingredients",
+                columns: table => new
+                {
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    quantity = table.Column<int>(type: "int", nullable: true),
+                    name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ingredients", x => x.id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "users",
                 columns: table => new
@@ -32,9 +59,9 @@ namespace SList.Domain.Migrations
                 {
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    title = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     user_id = table.Column<int>(type: "int", nullable: true),
                     content = table.Column<string>(type: "text", nullable: true),
-                    comment_id = table.Column<int>(type: "int", nullable: true),
                     created_at = table.Column<DateTime>(type: "datetime", nullable: false),
                     updated_at = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
@@ -56,8 +83,6 @@ namespace SList.Domain.Migrations
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true),
-                    ingredient_id = table.Column<int>(type: "int", nullable: true),
-                    appliance_id = table.Column<int>(type: "int", nullable: true),
                     user_id = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -78,11 +103,8 @@ namespace SList.Domain.Migrations
                     id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     user_id = table.Column<int>(type: "int", nullable: true),
+                    name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     content = table.Column<string>(type: "text", nullable: true),
-                    comment_id = table.Column<int>(type: "int", nullable: true),
-                    rating_id = table.Column<int>(type: "int", nullable: true),
-                    ingredient_id = table.Column<int>(type: "int", nullable: true),
-                    appliance_id = table.Column<int>(type: "int", nullable: true),
                     created_at = table.Column<DateTime>(type: "datetime", nullable: false),
                     updated_at = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
@@ -98,34 +120,83 @@ namespace SList.Domain.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "appliances",
+                name: "AppliancePantry",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false),
-                    name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true)
+                    AppliancesId = table.Column<int>(type: "int", nullable: false),
+                    PantriesId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_appliances", x => x.id);
+                    table.PrimaryKey("PK_AppliancePantry", x => new { x.AppliancesId, x.PantriesId });
                     table.ForeignKey(
-                        name: "FK_appliances_pantries_id",
-                        column: x => x.id,
+                        name: "FK_AppliancePantry_appliances_AppliancesId",
+                        column: x => x.AppliancesId,
+                        principalTable: "appliances",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AppliancePantry_pantries_PantriesId",
+                        column: x => x.PantriesId,
                         principalTable: "pantries",
                         principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "IngredientPantry",
+                columns: table => new
+                {
+                    IngredientsId = table.Column<int>(type: "int", nullable: false),
+                    PantriesId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_IngredientPantry", x => new { x.IngredientsId, x.PantriesId });
                     table.ForeignKey(
-                        name: "FK_appliances_recipes_id",
-                        column: x => x.id,
+                        name: "FK_IngredientPantry_ingredients_IngredientsId",
+                        column: x => x.IngredientsId,
+                        principalTable: "ingredients",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_IngredientPantry_pantries_PantriesId",
+                        column: x => x.PantriesId,
+                        principalTable: "pantries",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ApplianceRecipe",
+                columns: table => new
+                {
+                    AppliancesId = table.Column<int>(type: "int", nullable: false),
+                    RecipesId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ApplianceRecipe", x => new { x.AppliancesId, x.RecipesId });
+                    table.ForeignKey(
+                        name: "FK_ApplianceRecipe_appliances_AppliancesId",
+                        column: x => x.AppliancesId,
+                        principalTable: "appliances",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ApplianceRecipe_recipes_RecipesId",
+                        column: x => x.RecipesId,
                         principalTable: "recipes",
                         principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "comments",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false),
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     content = table.Column<string>(type: "text", nullable: true),
                     user_id = table.Column<int>(type: "int", nullable: true),
                     post_id = table.Column<int>(type: "int", nullable: true),
@@ -143,21 +214,9 @@ namespace SList.Domain.Migrations
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_comments_forum_id",
-                        column: x => x.id,
-                        principalTable: "forum",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
                         name: "FK_comments_forum_post_id",
                         column: x => x.post_id,
                         principalTable: "forum",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_comments_recipes_id",
-                        column: x => x.id,
-                        principalTable: "recipes",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -175,35 +234,35 @@ namespace SList.Domain.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ingredients",
+                name: "IngredientRecipe",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false),
-                    quantity = table.Column<int>(type: "int", nullable: true),
-                    name = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true)
+                    IngredientsId = table.Column<int>(type: "int", nullable: false),
+                    RecipesId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ingredients", x => x.id);
+                    table.PrimaryKey("PK_IngredientRecipe", x => new { x.IngredientsId, x.RecipesId });
                     table.ForeignKey(
-                        name: "FK_ingredients_pantries_id",
-                        column: x => x.id,
-                        principalTable: "pantries",
+                        name: "FK_IngredientRecipe_ingredients_IngredientsId",
+                        column: x => x.IngredientsId,
+                        principalTable: "ingredients",
                         principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ingredients_recipes_id",
-                        column: x => x.id,
+                        name: "FK_IngredientRecipe_recipes_RecipesId",
+                        column: x => x.RecipesId,
                         principalTable: "recipes",
                         principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "ratings",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false),
+                    id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     recipe_id = table.Column<int>(type: "int", nullable: true),
                     user_id = table.Column<int>(type: "int", nullable: true),
                     rating = table.Column<int>(type: "int", nullable: true)
@@ -212,8 +271,8 @@ namespace SList.Domain.Migrations
                 {
                     table.PrimaryKey("PK_ratings", x => x.id);
                     table.ForeignKey(
-                        name: "FK_ratings_recipes_id",
-                        column: x => x.id,
+                        name: "FK_ratings_recipes_recipe_id",
+                        column: x => x.recipe_id,
                         principalTable: "recipes",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
@@ -224,6 +283,16 @@ namespace SList.Domain.Migrations
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppliancePantry_PantriesId",
+                table: "AppliancePantry",
+                column: "PantriesId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ApplianceRecipe_RecipesId",
+                table: "ApplianceRecipe",
+                column: "RecipesId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_comments_parentId",
@@ -246,9 +315,24 @@ namespace SList.Domain.Migrations
                 column: "user_id");
 
             migrationBuilder.CreateIndex(
+                name: "IX_IngredientPantry_PantriesId",
+                table: "IngredientPantry",
+                column: "PantriesId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_IngredientRecipe_RecipesId",
+                table: "IngredientRecipe",
+                column: "RecipesId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_pantries_user_id",
                 table: "pantries",
                 column: "user_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ratings_recipe_id",
+                table: "ratings",
+                column: "recipe_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ratings_user_id",
@@ -278,22 +362,34 @@ namespace SList.Domain.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "appliances");
+                name: "AppliancePantry");
+
+            migrationBuilder.DropTable(
+                name: "ApplianceRecipe");
 
             migrationBuilder.DropTable(
                 name: "comments");
 
             migrationBuilder.DropTable(
-                name: "ingredients");
+                name: "IngredientPantry");
+
+            migrationBuilder.DropTable(
+                name: "IngredientRecipe");
 
             migrationBuilder.DropTable(
                 name: "ratings");
+
+            migrationBuilder.DropTable(
+                name: "appliances");
 
             migrationBuilder.DropTable(
                 name: "forum");
 
             migrationBuilder.DropTable(
                 name: "pantries");
+
+            migrationBuilder.DropTable(
+                name: "ingredients");
 
             migrationBuilder.DropTable(
                 name: "recipes");

@@ -20,12 +20,73 @@ namespace SList.Domain.Migrations
                 .HasAnnotation("ProductVersion", "5.0.10")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("AppliancePantry", b =>
+                {
+                    b.Property<int>("AppliancesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PantriesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AppliancesId", "PantriesId");
+
+                    b.HasIndex("PantriesId");
+
+                    b.ToTable("AppliancePantry");
+                });
+
+            modelBuilder.Entity("ApplianceRecipe", b =>
+                {
+                    b.Property<int>("AppliancesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RecipesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AppliancesId", "RecipesId");
+
+                    b.HasIndex("RecipesId");
+
+                    b.ToTable("ApplianceRecipe");
+                });
+
+            modelBuilder.Entity("IngredientPantry", b =>
+                {
+                    b.Property<int>("IngredientsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PantriesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("IngredientsId", "PantriesId");
+
+                    b.HasIndex("PantriesId");
+
+                    b.ToTable("IngredientPantry");
+                });
+
+            modelBuilder.Entity("IngredientRecipe", b =>
+                {
+                    b.Property<int>("IngredientsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RecipesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("IngredientsId", "RecipesId");
+
+                    b.HasIndex("RecipesId");
+
+                    b.ToTable("IngredientRecipe");
+                });
+
             modelBuilder.Entity("SList.Domain.Models.Appliance", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("id");
+                        .HasColumnName("id")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
                         .HasMaxLength(255)
@@ -42,7 +103,8 @@ namespace SList.Domain.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("id");
+                        .HasColumnName("id")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Content")
                         .HasColumnType("text")
@@ -87,10 +149,6 @@ namespace SList.Domain.Migrations
                         .HasColumnName("id")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CommentId")
-                        .HasColumnType("int")
-                        .HasColumnName("comment_id");
-
                     b.Property<string>("Content")
                         .HasColumnType("text")
                         .HasColumnName("content");
@@ -98,6 +156,10 @@ namespace SList.Domain.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime")
                         .HasColumnName("created_at");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("title");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime")
@@ -119,7 +181,8 @@ namespace SList.Domain.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("id");
+                        .HasColumnName("id")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
                         .HasMaxLength(255)
@@ -143,14 +206,6 @@ namespace SList.Domain.Migrations
                         .HasColumnName("id")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("ApplianceId")
-                        .HasColumnType("int")
-                        .HasColumnName("appliance_id");
-
-                    b.Property<int?>("IngredientId")
-                        .HasColumnType("int")
-                        .HasColumnName("ingredient_id");
-
                     b.Property<string>("Name")
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)")
@@ -172,7 +227,8 @@ namespace SList.Domain.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("id");
+                        .HasColumnName("id")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int?>("Rate")
                         .HasColumnType("int")
@@ -188,6 +244,8 @@ namespace SList.Domain.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("RecipeId");
+
                     b.HasIndex("UserId");
 
                     b.ToTable("ratings");
@@ -201,14 +259,6 @@ namespace SList.Domain.Migrations
                         .HasColumnName("id")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("ApplianceId")
-                        .HasColumnType("int")
-                        .HasColumnName("appliance_id");
-
-                    b.Property<int?>("CommentId")
-                        .HasColumnType("int")
-                        .HasColumnName("comment_id");
-
                     b.Property<string>("Content")
                         .HasColumnType("text")
                         .HasColumnName("content");
@@ -217,13 +267,9 @@ namespace SList.Domain.Migrations
                         .HasColumnType("datetime")
                         .HasColumnName("created_at");
 
-                    b.Property<int?>("IngredientId")
-                        .HasColumnType("int")
-                        .HasColumnName("ingredient_id");
-
-                    b.Property<int?>("RatingId")
-                        .HasColumnType("int")
-                        .HasColumnName("rating_id");
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("name");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime")
@@ -294,58 +340,87 @@ namespace SList.Domain.Migrations
                     b.ToTable("users");
                 });
 
-            modelBuilder.Entity("SList.Domain.Models.Appliance", b =>
+            modelBuilder.Entity("AppliancePantry", b =>
                 {
-                    b.HasOne("SList.Domain.Models.Pantry", "Pantry")
-                        .WithMany("Appliances")
-                        .HasForeignKey("Id")
+                    b.HasOne("SList.Domain.Models.Appliance", null)
+                        .WithMany()
+                        .HasForeignKey("AppliancesId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SList.Domain.Models.Recipe", "Recipe")
-                        .WithOne("Appliance")
-                        .HasForeignKey("SList.Domain.Models.Appliance", "Id")
+                    b.HasOne("SList.Domain.Models.Pantry", null)
+                        .WithMany()
+                        .HasForeignKey("PantriesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ApplianceRecipe", b =>
+                {
+                    b.HasOne("SList.Domain.Models.Appliance", null)
+                        .WithMany()
+                        .HasForeignKey("AppliancesId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Pantry");
+                    b.HasOne("SList.Domain.Models.Recipe", null)
+                        .WithMany()
+                        .HasForeignKey("RecipesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
 
-                    b.Navigation("Recipe");
+            modelBuilder.Entity("IngredientPantry", b =>
+                {
+                    b.HasOne("SList.Domain.Models.Ingredient", null)
+                        .WithMany()
+                        .HasForeignKey("IngredientsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SList.Domain.Models.Pantry", null)
+                        .WithMany()
+                        .HasForeignKey("PantriesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("IngredientRecipe", b =>
+                {
+                    b.HasOne("SList.Domain.Models.Ingredient", null)
+                        .WithMany()
+                        .HasForeignKey("IngredientsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SList.Domain.Models.Recipe", null)
+                        .WithMany()
+                        .HasForeignKey("RecipesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("SList.Domain.Models.Comment", b =>
                 {
-                    b.HasOne("SList.Domain.Models.Forum", "IdNavigation")
-                        .WithOne("CommentIdNavigation")
-                        .HasForeignKey("SList.Domain.Models.Comment", "Id")
-                        .IsRequired();
-
-                    b.HasOne("SList.Domain.Models.Recipe", "Recipe")
-                        .WithOne("Comments")
-                        .HasForeignKey("SList.Domain.Models.Comment", "Id")
-                        .IsRequired();
-
                     b.HasOne("SList.Domain.Models.Comment", "Parent")
                         .WithMany("InverseParent")
                         .HasForeignKey("ParentId");
 
-                    b.HasOne("SList.Domain.Models.Forum", "Post")
-                        .WithMany("CommentPosts")
+                    b.HasOne("SList.Domain.Models.Forum", "Forum")
+                        .WithMany("Comments")
                         .HasForeignKey("PostId");
 
-                    b.HasOne("SList.Domain.Models.Recipe", "PostNavigation")
-                        .WithMany("CommentPostNavigations")
+                    b.HasOne("SList.Domain.Models.Recipe", "Recipe")
+                        .WithMany("Comments")
                         .HasForeignKey("PostId");
 
                     b.HasOne("SList.Domain.Models.User", "User")
                         .WithMany("Comments")
                         .HasForeignKey("UserId");
 
-                    b.Navigation("IdNavigation");
+                    b.Navigation("Forum");
 
                     b.Navigation("Parent");
-
-                    b.Navigation("Post");
-
-                    b.Navigation("PostNavigation");
 
                     b.Navigation("Recipe");
 
@@ -361,23 +436,6 @@ namespace SList.Domain.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("SList.Domain.Models.Ingredient", b =>
-                {
-                    b.HasOne("SList.Domain.Models.Pantry", "Pantry")
-                        .WithMany("Ingredients")
-                        .HasForeignKey("Id")
-                        .IsRequired();
-
-                    b.HasOne("SList.Domain.Models.Recipe", "Recipe")
-                        .WithOne("Ingredient")
-                        .HasForeignKey("SList.Domain.Models.Ingredient", "Id")
-                        .IsRequired();
-
-                    b.Navigation("Pantry");
-
-                    b.Navigation("Recipe");
-                });
-
             modelBuilder.Entity("SList.Domain.Models.Pantry", b =>
                 {
                     b.HasOne("SList.Domain.Models.User", "User")
@@ -390,12 +448,11 @@ namespace SList.Domain.Migrations
             modelBuilder.Entity("SList.Domain.Models.Rating", b =>
                 {
                     b.HasOne("SList.Domain.Models.Recipe", "Reciepe")
-                        .WithOne("Rating")
-                        .HasForeignKey("SList.Domain.Models.Rating", "Id")
-                        .IsRequired();
+                        .WithMany("Ratings")
+                        .HasForeignKey("RecipeId");
 
                     b.HasOne("SList.Domain.Models.User", "User")
-                        .WithMany()
+                        .WithMany("Ratings")
                         .HasForeignKey("UserId");
 
                     b.Navigation("Reciepe");
@@ -419,29 +476,14 @@ namespace SList.Domain.Migrations
 
             modelBuilder.Entity("SList.Domain.Models.Forum", b =>
                 {
-                    b.Navigation("CommentIdNavigation");
-
-                    b.Navigation("CommentPosts");
-                });
-
-            modelBuilder.Entity("SList.Domain.Models.Pantry", b =>
-                {
-                    b.Navigation("Appliances");
-
-                    b.Navigation("Ingredients");
+                    b.Navigation("Comments");
                 });
 
             modelBuilder.Entity("SList.Domain.Models.Recipe", b =>
                 {
-                    b.Navigation("Appliance");
-
-                    b.Navigation("CommentPostNavigations");
-
                     b.Navigation("Comments");
 
-                    b.Navigation("Ingredient");
-
-                    b.Navigation("Rating");
+                    b.Navigation("Ratings");
                 });
 
             modelBuilder.Entity("SList.Domain.Models.User", b =>
@@ -451,6 +493,8 @@ namespace SList.Domain.Migrations
                     b.Navigation("Forums");
 
                     b.Navigation("Pantries");
+
+                    b.Navigation("Ratings");
 
                     b.Navigation("Recipes");
                 });

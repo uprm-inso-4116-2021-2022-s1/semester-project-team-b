@@ -9,18 +9,15 @@ namespace SList.Domain.Models
     {
         public Forum()
         {
-            CommentPosts = new HashSet<Comment>();
+            Comments = new HashSet<Comment>();
         }
-
+        public string Title { get; set; }
         public int Id { get; set; }
         public int? UserId { get; set; }
         public string Content { get; set; }
-        public int? CommentId { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
-
         public virtual User User { get; set; }
-        public virtual Comment CommentIdNavigation { get; set; }
-        public virtual ICollection<Comment> CommentPosts { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }

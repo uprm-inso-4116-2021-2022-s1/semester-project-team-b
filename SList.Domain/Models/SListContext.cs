@@ -27,6 +27,7 @@ namespace SList.Domain.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
+                //Note: this should not be excuted ever since we are always providing the optionBuilder through dependacy injection 
                 optionsBuilder.UseSqlServer("Server=localhost;Database=SList;Trusted_Connection=True;");
             }
         }
@@ -47,15 +48,11 @@ namespace SList.Domain.Models
                     .HasMaxLength(255)
                     .HasColumnName("name");
 
-                entity.HasOne(d => d.Pantry)
-                    .WithMany(p => p.Appliances)
-                    .HasForeignKey(d => d.Id)
-                    .OnDelete(DeleteBehavior.ClientSetNull);
+                entity.HasMany(d => d.Pantries)
+                    .WithMany(p => p.Appliances);
 
-                entity.HasOne(d => d.Recipe)
-                    .WithOne(p => p.Appliance)
-                    .HasForeignKey<Appliance>(d => d.Id)
-                    .OnDelete(DeleteBehavior.ClientSetNull);
+                entity.HasMany(d => d.Recipes)
+                    .WithMany(p => p.Appliances);
             });
 
             modelBuilder.Entity<Comment>(entity =>
@@ -85,26 +82,17 @@ namespace SList.Domain.Models
 
                 entity.Property(e => e.UserId).HasColumnName("user_id");
 
-                entity.HasOne(d => d.IdNavigation)
-                    .WithOne(p => p.CommentIdNavigation)
-                    .HasForeignKey<Comment>(d => d.Id)
-                    .OnDelete(DeleteBehavior.ClientSetNull);
-
                 entity.HasOne(d => d.Recipe)
-                    .WithOne(p => p.Comments)
-                    .HasForeignKey<Comment>(d => d.Id)
+                    .WithMany(p => p.Comments)
+                    .HasForeignKey(d => d.PostId)
                     .OnDelete(DeleteBehavior.ClientSetNull);
 
                 entity.HasOne(d => d.Parent)
                     .WithMany(p => p.InverseParent)
                     .HasForeignKey(d => d.ParentId);
 
-                entity.HasOne(d => d.Post)
-                    .WithMany(p => p.CommentPosts)
-                    .HasForeignKey(d => d.PostId);
-
-                entity.HasOne(d => d.PostNavigation)
-                    .WithMany(p => p.CommentPostNavigations)
+                entity.HasOne(d => d.Forum)
+                    .WithMany(p => p.Comments)
                     .HasForeignKey(d => d.PostId);
 
                 entity.HasOne(d => d.User)
@@ -115,10 +103,9 @@ namespace SList.Domain.Models
             modelBuilder.Entity<Forum>(entity =>
             {
                 entity.ToTable("forum");
+                entity.Property(e => e.Title).HasColumnName("title");
 
                 entity.Property(e => e.Id).HasColumnName("id");
-
-                entity.Property(e => e.CommentId).HasColumnName("comment_id");
 
                 entity.Property(e => e.Content)
                     .HasColumnType("text")
@@ -154,15 +141,11 @@ namespace SList.Domain.Models
 
                 entity.Property(e => e.Quantity).HasColumnName("quantity");
 
-                entity.HasOne(d => d.Pantry)
-                    .WithMany(p => p.Ingredients)
-                    .HasForeignKey(d => d.Id)
-                    .OnDelete(DeleteBehavior.ClientSetNull);
+                entity.HasMany(d => d.Pantries)
+                    .WithMany(p => p.Ingredients);
 
-                entity.HasOne(d => d.Recipe)
-                    .WithOne(p => p.Ingredient)
-                    .HasForeignKey<Ingredient>(d => d.Id)
-                    .OnDelete(DeleteBehavior.ClientSetNull);
+                entity.HasMany(d => d.Recipes)
+                    .WithMany(p => p.Ingredients);
             });
 
             modelBuilder.Entity<Pantry>(entity =>
@@ -171,15 +154,17 @@ namespace SList.Domain.Models
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
-                entity.Property(e => e.ApplianceId).HasColumnName("appliance_id");
-
-                entity.Property(e => e.IngredientId).HasColumnName("ingredient_id");
 
                 entity.Property(e => e.Name)
                     .HasMaxLength(255)
                     .HasColumnName("name");
 
                 entity.Property(e => e.UserId).HasColumnName("user_id");
+                entity.HasMany(d => d.Ingredients)
+                    .WithMany(i => i.Pantries);
+
+                entity.HasMany(d => d.Appliances)
+                    .WithMany(a => a.Pantries);
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Pantries)
@@ -200,9 +185,13 @@ namespace SList.Domain.Models
 
                 entity.Property(e => e.UserId).HasColumnName("user_id");
 
+                entity.HasOne(e => e.User)
+                    .WithMany(u => u.Ratings)
+                    .HasForeignKey(e => e.UserId);
+
                 entity.HasOne(d => d.Reciepe)
-                    .WithOne(p => p.Rating)
-                    .HasForeignKey<Rating>(d => d.Id)
+                    .WithMany(p => p.Ratings)
+                    .HasForeignKey(d => d.RecipeId)
                     .OnDelete(DeleteBehavior.ClientSetNull);
             });
 
@@ -211,10 +200,7 @@ namespace SList.Domain.Models
                 entity.ToTable("recipes");
 
                 entity.Property(e => e.Id).HasColumnName("id");
-
-                entity.Property(e => e.ApplianceId).HasColumnName("appliance_id");
-
-                entity.Property(e => e.CommentId).HasColumnName("comment_id");
+                entity.Property(e => e.Name).HasColumnName("name");
 
                 entity.Property(e => e.Content)
                     .HasColumnType("text")
@@ -224,10 +210,6 @@ namespace SList.Domain.Models
                     .IsRequired()
                     .HasColumnType("datetime")
                     .HasColumnName("created_at");
-
-                entity.Property(e => e.IngredientId).HasColumnName("ingredient_id");
-
-                entity.Property(e => e.RatingId).HasColumnName("rating_id");
 
                 entity.Property(e => e.UpdatedAt)
                     .HasColumnType("datetime")

@@ -18,32 +18,23 @@ namespace SList.Domain.Repositories
             _contextFactory = factory;
 
         }
-        public void Add()
+
+        public Recipe Add(string name, string content, IEnumerable<string> ingredients, IEnumerable<string> appliances, DateTime updatedAt, string username, string password)
         {
             throw new NotImplementedException();
         }
 
-        public void Add(Recipe enity)
+        public Recipe Get(string name)
         {
             throw new NotImplementedException();
         }
 
-        public Recipe Get()
+        public IEnumerable<Recipe> GetRecipesContaining(IEnumerable<string> ingredients, IEnumerable<string> appliances)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Recipe> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Recipe Remove()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update()
+        public void Update(string name, string content, IEnumerable<string> ingredients, IEnumerable<string> appliances, DateTime updatedAt)
         {
             throw new NotImplementedException();
         }

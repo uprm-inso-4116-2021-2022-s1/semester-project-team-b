@@ -18,32 +18,28 @@ namespace SList.Domain.Repositories
             _contextFactory = factory;
 
         }
-        public void Add()
+
+        public Forum Add(string name, string content, string username, string password)
         {
             throw new NotImplementedException();
         }
 
-        public void Add(Forum enity)
+        public void AddComment(string name, string username, string password, string commentContent, string parentContent)
         {
             throw new NotImplementedException();
         }
 
-        public Forum Get()
+        public void Get(string name, string username, string password)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Forum> GetAll()
+        public void Update(string name, string username, string password, string newName)
         {
             throw new NotImplementedException();
         }
 
-        public Forum Remove()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update()
+        public void UpdateComment(string name, string username, string password, string commentContent, string parentContent, string updatedContent)
         {
             throw new NotImplementedException();
         }

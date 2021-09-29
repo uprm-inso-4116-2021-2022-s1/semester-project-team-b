@@ -13,10 +13,7 @@ namespace SList.Domain.Repositories
     {
         private SListContextFactory _contextFactory;
 
-        public UserRepository(SListContextFactory factory)
-        {
-            _contextFactory = factory;
-        }
+        public UserRepository(SListContextFactory factory) => _contextFactory = factory;
         public void Add(
             string username,
             string email,
@@ -51,22 +48,18 @@ namespace SList.Domain.Repositories
                 .Where(u => u.Username == username && u.Password == password)
                 .FirstOrDefault();
         }
-        public User Get()
+
+        public IEnumerable<Pantry> GetPantries(string username, string email, params string[] pantryNames)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<User> GetAll()
+        public IEnumerable<Recipe> GetRecipes(string username, string email, params string[] pantryNames)
         {
             throw new NotImplementedException();
         }
 
-        public User Remove()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update()
+        public void Update(string username, string email, string firstName, string lastName, string password, DateTime updatedAt)
         {
             throw new NotImplementedException();
         }

@@ -13,6 +13,8 @@ namespace SList.Domain.Models
             Forums = new HashSet<Forum>();
             Pantries = new HashSet<Pantry>();
             Recipes = new HashSet<Recipe>();
+            Ratings = new HashSet<Rating>();
+
         }
 
         public int Id { get; set; }
@@ -28,5 +30,6 @@ namespace SList.Domain.Models
         public virtual ICollection<Forum> Forums { get; set; }
         public virtual ICollection<Pantry> Pantries { get; set; }
         public virtual ICollection<Recipe> Recipes { get; set; }
+        public virtual ICollection<Rating> Ratings { get; set; }
     }
 }

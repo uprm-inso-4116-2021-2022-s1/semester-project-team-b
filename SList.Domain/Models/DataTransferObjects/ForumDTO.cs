@@ -11,6 +11,7 @@ namespace SList.Domain.Models.DataTransferObjects
         {
             Comments = new HashSet<CommentDTO>();
         }
+        public string Name { get; set; }
         public string Content { get; set; }
         public byte[] CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
