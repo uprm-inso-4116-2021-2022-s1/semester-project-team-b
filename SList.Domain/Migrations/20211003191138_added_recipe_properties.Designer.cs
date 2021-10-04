@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SList.Domain.Models;
 
 namespace SList.Domain.Migrations
 {
     [DbContext(typeof(SListContext))]
-    partial class SListContextModelSnapshot : ModelSnapshot
+    [Migration("20211003191138_added_recipe_properties")]
+    partial class added_recipe_properties
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

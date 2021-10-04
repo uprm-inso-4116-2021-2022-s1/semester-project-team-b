@@ -56,6 +56,9 @@ namespace SList.API
             services.AddScoped<IRecipeRepository, RecipeRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
 
+            services.AddScoped<ISeedingRepository, SeedingRepository>();
+
+
             services.AddScoped<IRecipeAppService, RecipeAppService>();
             services.AddScoped<IForumAppService, ForumAppService>();
             services.AddScoped<IUserAppService, UserAppService>();
