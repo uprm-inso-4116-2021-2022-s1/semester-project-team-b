@@ -202,7 +202,7 @@ namespace SList.Domain.Models
                 entity.Property(e => e.Id).HasColumnName("id");
                 entity.Property(e => e.Name).HasColumnName("name");
 
-                entity.Property(e => e.Content)
+                entity.Property(e => e.Description)
                     .HasColumnType("text")
                     .HasColumnName("content");
 
@@ -220,6 +220,8 @@ namespace SList.Domain.Models
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Recipes)
                     .HasForeignKey(d => d.UserId);
+                entity.Property(e => e.CookTime).HasColumnName("cook_duration");
+                entity.Property(e => e.PrepTime).HasColumnName("prepation_duration");
             });
 
             modelBuilder.Entity<User>(entity =>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 #nullable disable
 
@@ -18,7 +19,36 @@ namespace SList.Domain.Models
         public int Id { get; set; }
         public int? UserId { get; set; }
         public string Name { get; set; }
-        public string Content { get; set; }
+        public string Steps { get; set; }
+        public string Description { get; set; }
+        
+        public TimeSpan CookDuration 
+        {
+            get
+            {
+                var slots = CookTime
+                    .Split(':')
+                    .Select(m => Convert.ToInt32(m))
+                    .ToList();
+                //days:hours:minutes:seconds
+                return new TimeSpan(slots[0], slots[1], slots[2], slots[3]);
+            }
+
+        } 
+        public TimeSpan PrepDuration {
+            get
+            {
+                var slots = PrepTime
+                    .Split(':')
+                    .Select( m  => Convert.ToInt32(m))
+                    .ToList();
+                //days:hours:minutes:seconds
+                return new TimeSpan(slots[0], slots[1], slots[2], slots[3]);
+            }
+
+        }
+        public string CookTime { get; set; }
+        public string PrepTime { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
         public virtual User User { get; set; }
