@@ -1,10 +1,8 @@
 ﻿using SList.Domain.Models;
 using SList.Domain.Models.DataTransferObjects;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace SList.Domain.Extensions
 {
@@ -19,7 +17,10 @@ namespace SList.Domain.Extensions
                 LastName = user.LastName,
                 Password = user.Password,
                 UpdatedAt = user.UpdatedAt,
-                CreatedAt = user.CreatedAt
+                CreatedAt = user.CreatedAt,
+                Comments = user.Comments
+                    ?.Select(c => c.ToCommentDTO())
+                    .ToList() ?? new List<CommentDTO>()
             };
 
     }
