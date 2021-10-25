@@ -28,6 +28,17 @@ namespace SList.API.Services
                 createdAt: DateTime.Now,
                 updatedAt: user.UpdatedAt);
         }
+
+        public void EditPassword(string password)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteAccount(string username)
+        {
+            throw new NotImplementedException();
+        }
+
         public UserDTO Get(string username, string password) => _userRepository.Get(username, password)?.ToUserDTO();
     }
 }

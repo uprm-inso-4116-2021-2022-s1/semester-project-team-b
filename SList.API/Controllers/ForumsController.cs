@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SList.API.Services.Interfaces;
+using SList.Domain.Models.DataTransferObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,5 +20,17 @@ namespace SList.API.Controllers
             _forumAppService = forumAppService;
 
         }
+        
+        [HttpGet]
+        public ForumDTO Get([FromQuery] string forumpost) => _forumAppService.Get(forumpost);
+        
+        [HttpPost]
+        [Route("post_forum")]
+        public void Add([FromQuery] ForumDTO forum) => _forumAppService.Add(forum);
+
+        [HttpPost]
+        [Route("edit_forum")]
+        public void EditForum([FromQuery] string forumpost) => _forumAppService.EditForum(forumpost);
+
     }
 }
