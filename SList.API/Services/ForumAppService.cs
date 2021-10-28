@@ -1,8 +1,6 @@
 ﻿using SList.API.Services.Interfaces;
-using SList.Domain.Extensions;
-using SList.Domain.Models;
-using SList.Domain.Models.DataTransferObjects;
-using SList.Domain.Repositories.Interfaces;
+using SList.Commons.DataTransferObjects;
+using SList.Domain.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,19 +10,15 @@ namespace SList.API.Services
 {
     public class ForumAppService : IForumAppService
     {
-        private IForumAppService _forumRepository;
+        private IForumRepository _forumRepository;
 
-        public ForumAppService(IForumAppService forumRepository)
+        public ForumAppService(IForumRepository forumRepository)
         {
             _forumRepository = forumRepository;
         }
         public void Add(ForumDTO forum)
         {
-            _forumRepository.Add(forum.Name,
-                forum.Content,
-                createdAt: DateTime.Now,
-                forum.User
-                updatedAt: forum.UpdatedAt);
+            throw new NotImplementedException();
         }
 
         public void EditForum(string forum)
@@ -32,6 +26,9 @@ namespace SList.API.Services
             throw new NotImplementedException();
         }
 
-        public ForumDTO Get(stirng forumpost) => _forumRepository.Get(forumpost)?.ToForumDTO();
+        public ForumDTO Get(string forumpost)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SList.API.Services.Interfaces;
-using SList.Domain.Models.DataTransferObjects;
+using SList.Commons.DataTransferObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;

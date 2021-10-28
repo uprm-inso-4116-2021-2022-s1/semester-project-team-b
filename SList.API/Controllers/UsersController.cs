@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SList.API.Services.Interfaces;
-using SList.Domain.Models.DataTransferObjects;
+using SList.Commons.DataTransferObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,6 +48,6 @@ namespace SList.API.Controllers
 
         [HttpDelete]
         [Route("delete_account")]
-        public string DeleteAccount([FromQuery] string username) => _userAppService.DeleteAccount(username);
+        public void DeleteAccount([FromQuery] string username) => _userAppService.DeleteAccount(username);
     }
 }
