@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SList.Domain", "SList.Domai
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SList.API", "SList.API\SList.API.csproj", "{CCA8F0A6-0ED5-46BD-81B7-2C68B0C20FE0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SList.Infrastructure", "SList.Infrastructure\SList.Infrastructure.csproj", "{226BB035-722E-4158-AEDE-C9B5C543FFF0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SList.Commons", "SList.Commons\SList.Commons.csproj", "{74678081-801F-4D20-A077-BDCE67303782}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{CCA8F0A6-0ED5-46BD-81B7-2C68B0C20FE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CCA8F0A6-0ED5-46BD-81B7-2C68B0C20FE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CCA8F0A6-0ED5-46BD-81B7-2C68B0C20FE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{226BB035-722E-4158-AEDE-C9B5C543FFF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{226BB035-722E-4158-AEDE-C9B5C543FFF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{226BB035-722E-4158-AEDE-C9B5C543FFF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{226BB035-722E-4158-AEDE-C9B5C543FFF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74678081-801F-4D20-A077-BDCE67303782}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74678081-801F-4D20-A077-BDCE67303782}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74678081-801F-4D20-A077-BDCE67303782}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74678081-801F-4D20-A077-BDCE67303782}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,8 +1,7 @@
 ﻿using SList.API.Services.Interfaces;
-using SList.Domain.Extensions;
-using SList.Domain.Models;
-using SList.Domain.Models.DataTransferObjects;
-using SList.Domain.Repositories.Interfaces;
+using SList.Commons.DataTransferObjects;
+using SList.Commons.Extensions;
+using SList.Domain.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,6 +38,11 @@ namespace SList.API.Services
             throw new NotImplementedException();
         }
 
-        public UserDTO Get(string username, string password) => _userRepository.Get(username, password)?.ToUserDTO();
+        public UserDTO Get(string username, string password)
+        {
+            _userRepository.Get(username, password);
+            throw new NotImplementedException();
+        }
+
     }
 }

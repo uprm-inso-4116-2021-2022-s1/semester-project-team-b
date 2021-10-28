@@ -8,10 +8,10 @@ using Microsoft.OpenApi.Models;
 using Serilog;
 using SList.API.Services;
 using SList.API.Services.Interfaces;
-using SList.Domain.Factories;
-using SList.Domain.Models;
+using SList.Infrastructure.Factories;
 using SList.Domain.Repositories;
-using SList.Domain.Repositories.Interfaces;
+using SList.Infrastructure.Context;
+using SList.Infrastructure.Repositories;
 
 namespace SList.API
 {
@@ -55,8 +55,6 @@ namespace SList.API
             services.AddScoped<IForumRepository, ForumRepository>();
             services.AddScoped<IRecipeRepository, RecipeRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
-
-            services.AddScoped<ISeedingRepository, SeedingRepository>();
 
 
             services.AddScoped<IRecipeAppService, RecipeAppService>();
