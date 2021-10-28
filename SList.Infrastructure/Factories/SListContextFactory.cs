@@ -19,5 +19,12 @@ namespace SList.Infrastructure.Factories
             return new SListContext(optionBuilder.Options);
 
         }
+
+        public SListContext BuildContext(DbContextOptionsBuilder<SListContext> optionBuilder)
+        {
+            optionBuilder.UseLoggerFactory(_loggerFactory)
+                .EnableSensitiveDataLogging(true);
+            return new SListContext(optionBuilder.Options);
+        }
     }
 }

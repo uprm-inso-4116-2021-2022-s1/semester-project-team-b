@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SList.Domain.Models;
+using System;
 
 namespace SList.Infrastructure.Context
 {

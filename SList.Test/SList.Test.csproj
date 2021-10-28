@@ -1,12 +1,25 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SList.API\SList.API.csproj" />
-    <ProjectReference Include="..\SList.Domain\SList.Infrastructure.csproj" />
+    <None Remove="Configs\appsettings.Development.json" />
+    <None Remove="Configs\appsettings.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Configs\appsettings.Development.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="Configs\appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -16,12 +29,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Application\Forums\" />
-    <Folder Include="Application\Recipes\" />
-    <Folder Include="Application\Users\" />
-    <Folder Include="Domain\Forums\" />
-    <Folder Include="Domain\Recipes\" />
-    <Folder Include="Domain\Users\" />
+    <ProjectReference Include="..\SList.API\SList.API.csproj" />
+    <ProjectReference Include="..\SList.Commons\SList.Commons.csproj" />
+    <ProjectReference Include="..\SList.Domain\SList.Domain.csproj" />
+    <ProjectReference Include="..\SList.Infrastructure\SList.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Application\" />
   </ItemGroup>
 
 </Project>
