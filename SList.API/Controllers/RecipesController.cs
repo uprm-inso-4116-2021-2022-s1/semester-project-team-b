@@ -27,7 +27,7 @@ namespace SList.API.Controllers
         /// <param name="recipeName"></param>
         /// <returns></returns>
         [HttpGet]
-        public RecipeDTO Get([FromQuery] string recipeName) 
+        public RecipeDTO Get([FromQuery] string recipeName)
             => _recipeAppService.Get(recipeName);
 
         /// <summary>
@@ -38,7 +38,9 @@ namespace SList.API.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("find_recipes")]
-        public List<RecipeDTO> FindRecipes([FromQuery] List<ApplianceDTO> appliances, [FromQuery] List<IngredientDTO> ingredients)
+        public List<RecipeDTO> FindRecipes(
+            [FromQuery] List<ApplianceDTO> appliances, 
+            [FromQuery] List<IngredientDTO> ingredients)
             => _recipeAppService.FindRecipes(appliances, ingredients);
 
         /// <summary>
@@ -57,13 +59,13 @@ namespace SList.API.Controllers
             [FromQuery] TimeSpan prepTime,
             [FromQuery] List<ApplianceDTO> appliances,
             [FromQuery] List<IngredientDTO> ingredients,
-            [FromQuery] List<InstructionDTO> instructions)
+            [FromQuery] List<InstructionsDTO> instructions)
                 => _recipeAppService.Add(recipeName,
-                                            cookTime,
-                                            prepTime,
-                                            appliances,
-                                            ingredients,
-                                            instructions);
+                    cookTime,
+                    prepTime,
+                    appliances,
+                    ingredients,
+                    instructions);
 
         /// <summary>
         /// Updates an existing recipe
@@ -81,52 +83,15 @@ namespace SList.API.Controllers
             [FromQuery] TimeSpan prepTime,
             [FromQuery] List<ApplianceDTO> appliances,
             [FromQuery] List<IngredientDTO> ingredients,
-            [FromQuery] List<InstructionDTO> instructions) 
-                => _recipeAppService.Update(recipeName,
-                                            cookTime, 
-                                            prepTime, 
-                                            appliances, 
-                                            ingredients, 
-                                            instructions);
-
-        /// <summary>
-        /// Creates a pantry with list of appliances and ingredients
-        /// </summary>
-        /// <param name="pantryName"></param>
-        /// <param name="appliances"></param>
-        /// <param name="ingredients"></param>
-        [HttpPost]
-        [Route("add_pantry")]
-        public void AddPantry([FromQuery] string pantryName,
-            [FromQuery] List<ApplianceDTO> appliances,
-            [FromQuery] List<IngredientDTO> ingredients)
-                => _recipeAppService.AddPantry(pantryName,
-                                                appliances,
-                                                ingredients);
-
-        /// <summary>
-        /// Updates existing pantry
-        /// </summary>
-        /// <param name="pantryName"></param>
-        /// <param name="appliances"></param>
-        /// <param name="ingredients"></param>
-        [HttpPost]
-        [Route("update_pantry")]
-        public void UpdatePantry([FromQuery] string pantryName,
-            [FromQuery] List<ApplianceDTO> appliances,
-            [FromQuery] List<IngredientDTO> ingredients)
-                => _recipeAppService.UpdatePantry(pantryName,
-                                                    appliances,
-                                                    ingredients);
+            [FromQuery] List<InstructionsDTO> instructions)
+                => _recipeAppService.Update(
+                    recipeName,
+                    cookTime,
+                    prepTime,
+                    appliances,
+                    ingredients,
+                    instructions);
 
 
-        /// <summary>
-        /// Find existing pantries
-        /// </summary>
-        /// <param name="pantryName"></param>
-        /// <returns></returns>
-        [HttpGet]
-        [Route("get_pantry")]
-        public PantryDTO findPantry([FromQuery] string pantryName) => _recipeAppService.findPantry(pantryName);
     }
 }

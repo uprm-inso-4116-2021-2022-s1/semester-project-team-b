@@ -6,20 +6,16 @@ using System.Linq;
 
 namespace SList.Commons.DataTransferObjects
 {
-    public partial class RecipeDTO
+    public class RecipeDTO
     {
-        public RecipeDTO()
-        {
-            Comments = new HashSet<CommentDTO>();
-        }
         public string Content { get; set; }
-        public byte[] CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
-        public virtual UserDTO User { get; set; }
-        public virtual ApplianceDTO Appliance { get; set; }
-        public virtual IngredientDTO Ingredient { get; set; }
-        public virtual ICollection<RatingDTO> Ratings { get; set; }
-        public int? OverallRating() => Ratings?.Sum(r => r.Rating) / Ratings?.Count();
-        public virtual ICollection<CommentDTO> Comments { get; set; }
+        public UserDTO User { get; set; }
+        public IEnumerable<ApplianceDTO> Appliances { get; set; }
+        public IEnumerable<IngredientDTO> Ingredients { get; set; }
+        public IEnumerable<RatingDTO> Ratings { get; set; }
+        public double OverallRating() => Ratings?.Sum(r => r.Rating) / Ratings?.Count() ?? 0;
+        public IEnumerable<CommentDTO> Comments { get; set; }
     }
 }

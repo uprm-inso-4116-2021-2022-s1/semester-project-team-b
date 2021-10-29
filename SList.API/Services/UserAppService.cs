@@ -44,5 +44,19 @@ namespace SList.API.Services
             throw new NotImplementedException();
         }
 
+        public void AddPantry(string pantryName, List<ApplianceDTO> appliances, List<IngredientDTO> ingredients)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdatePantry(string pantryName, List<ApplianceDTO> appliances, List<IngredientDTO> ingredients)
+        {
+            throw new NotImplementedException();
+        }
+
+        public PantryDTO findPantry(string pantryName)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -9,15 +9,14 @@ namespace SList.Commons.DataTransferObjects
     {
         public CommentDTO()
         {
-            OriginalComment = new HashSet<CommentDTO>();
         }
         public string Content { get; set; }
-        public byte[] CreatedAt { get; set; }
+        public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
-        public virtual RecipeDTO Recipe { get; set; }
-        public virtual CommentDTO Parent { get; set; }
-        public virtual ForumDTO Forum { get; set; }
-        public virtual UserDTO User { get; set; }
-        public virtual ICollection<CommentDTO> OriginalComment { get; set; }
+        public RecipeDTO Recipe { get; set; }
+        public CommentDTO Parent { get; set; }
+        public ForumDTO Forum { get; set; }
+        public UserDTO User { get; set; }
+        public ICollection<CommentDTO> OriginalComment { get; set; }
     }
 }

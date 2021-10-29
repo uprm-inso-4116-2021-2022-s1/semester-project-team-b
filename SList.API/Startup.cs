@@ -12,6 +12,11 @@ using SList.Infrastructure.Factories;
 using SList.Domain.Repositories;
 using SList.Infrastructure.Context;
 using SList.Infrastructure.Repositories;
+using FluentValidation.AspNetCore;
+using SList.API.Validators;
+using System.Reflection;
+using System;
+using System.IO;
 
 namespace SList.API
 {
@@ -42,11 +47,19 @@ namespace SList.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton(Log.Logger);
-            services.AddControllers();
+            services.AddControllers()
+                .AddFluentValidation(fv => 
+                    fv.RegisterValidatorsFromAssemblyContaining<UserValidator>());
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SList.API", Version = "v1" });
+                // Set the comments path for the Swagger JSON and UI.
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
             });
+            
+
 
             services.AddDbContext<SListContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("SListDatabase")));

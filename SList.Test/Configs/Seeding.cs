@@ -24,13 +24,13 @@ namespace SList.Test.Configs
             _contextFactory = new SListContextFactory(null);
         }
         public SListContextFactory GetFactory() => _contextFactory;
-        public void Seed(int size = 100)
+        public void Populate()
         {
             using var ctx = BuildContext();
-            ctx.BulkInsert(GenerateUsers(100));
+            ctx.AddRange(GenerateUsers(100));
             ctx.SaveChanges();
-        }
 
+        }
         private List<User> GenerateUsers(int size) => new Faker<User>()
             .RuleFor(u => u.Username, f => f.Person.UserName)
             .RuleFor(u => u.Email, f => f.Person.Email)
