@@ -12,5 +12,8 @@ namespace SList.API.Services.Interfaces
         public void Add(UserDTO user);
         public void EditPassword(string password);
         public void DeleteAccount(string username);
+        void AddPantry(string pantryName, List<ApplianceDTO> appliances, List<IngredientDTO> ingredients);
+        void UpdatePantry(string pantryName, List<ApplianceDTO> appliances, List<IngredientDTO> ingredients);
+        PantryDTO findPantry(string pantryName);
     }
 }

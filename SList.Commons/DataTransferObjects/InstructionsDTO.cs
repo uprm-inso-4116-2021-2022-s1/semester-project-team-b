@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace SList.Commons.DataTransferObjects
 {
-    public class InstructionDTO
+    public class InstructionsDTO
     {
-        public List<string> steps { get; set; }
+        public List<string> Steps { get; set; }
     }
 }

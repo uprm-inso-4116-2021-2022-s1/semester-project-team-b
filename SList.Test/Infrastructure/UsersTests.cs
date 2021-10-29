@@ -24,15 +24,9 @@ namespace SList.Test.Infrastructure
         public void UserGetTest()
         {
             using var ctx = _seeder.BuildContext();
-            if (!ctx.Users.Any())
-            {
-                _seeder.Seed();
-            }
             Assert.NotEmpty(ctx.Users);
             var firstUser = ctx.Users.First();
-
             var foundUser = _userRepository.Get(firstUser.Username, firstUser.Password);
-
             Assert.Equal(firstUser, foundUser);
         }
 

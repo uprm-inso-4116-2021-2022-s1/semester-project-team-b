@@ -49,5 +49,45 @@ namespace SList.API.Controllers
         [HttpDelete]
         [Route("delete_account")]
         public void DeleteAccount([FromQuery] string username) => _userAppService.DeleteAccount(username);
+
+        /// <summary>
+        /// Creates a pantry with list of appliances and ingredients
+        /// </summary>
+        /// <param name="pantryName"></param>
+        /// <param name="appliances"></param>
+        /// <param name="ingredients"></param>
+        [HttpPost]
+        [Route("add_pantry")]
+        public void AddPantry([FromQuery] string pantryName,
+            [FromQuery] List<ApplianceDTO> appliances,
+            [FromQuery] List<IngredientDTO> ingredients)
+                => _userAppService.AddPantry(pantryName,
+                                                appliances,
+                                                ingredients);
+
+        /// <summary>
+        /// Updates existing pantry
+        /// </summary>
+        /// <param name="pantryName"></param>
+        /// <param name="appliances"></param>
+        /// <param name="ingredients"></param>
+        [HttpPost]
+        [Route("update_pantry")]
+        public void UpdatePantry([FromQuery] string pantryName,
+            [FromQuery] List<ApplianceDTO> appliances,
+            [FromQuery] List<IngredientDTO> ingredients)
+                => _userAppService.UpdatePantry(pantryName,
+                                                    appliances,
+                                                    ingredients);
+
+
+        /// <summary>
+        /// Find existing pantries
+        /// </summary>
+        /// <param name="pantryName"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("get_pantry")]
+        public PantryDTO findPantry([FromQuery] string pantryName) => _userAppService.findPantry(pantryName);
     }
 }
