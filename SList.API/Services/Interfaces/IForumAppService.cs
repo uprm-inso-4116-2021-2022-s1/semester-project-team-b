@@ -8,8 +8,10 @@ namespace SList.API.Services.Interfaces
 {
     public interface IForumAppService
     {
-        public ForumDTO Get(string forumpost);
-        public void Add(ForumDTO forum);
-        void EditForum(string forumpost);
+        public ForumDTO Get(string title, string username, string password);
+        public void Update(string title, string username, string password, string newName);
+        public void Add(string title, string content, string username, string password);
+        public void AddComment(string title, string username, string password, string commentContent, string parentContent);
+        public void UpdateComment(string title, string username, string password, string commentContent, string parentContent, string updatedContent);
     }
 }

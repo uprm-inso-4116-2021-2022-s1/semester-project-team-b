@@ -17,12 +17,7 @@ namespace SList.API.Services
             _recipeRepository = recipeRepository;
         }
 
-        public void Add(string recipeName, 
-            TimeSpan cookTime, 
-            TimeSpan prepTime, 
-            List<ApplianceDTO> appliances, 
-            List<IngredientDTO> ingredients, 
-            List<InstructionsDTO> instructions)
+        public void Add(string recipeName, string username, TimeSpan cookTime, TimeSpan prepTime, List<ApplianceDTO> appliances, List<IngredientDTO> ingredients, List<InstructionsDTO> instructions)
         {
             throw new NotImplementedException();
         }
@@ -32,20 +27,19 @@ namespace SList.API.Services
             throw new NotImplementedException();
         }
 
-        public RecipeDTO Get(string RecipeName)
+        public List<RecipeDTO> FindRecipesByName(string RecipeName)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(string recipeName, 
-            TimeSpan cookTime, 
-            TimeSpan prepTime, 
-            List<ApplianceDTO> appliances, 
-            List<IngredientDTO> ingredients, 
-            List<InstructionsDTO> instructions)
+        public List<RecipeDTO> FindRecipesByPantry(PantryDTO pantry)
         {
             throw new NotImplementedException();
         }
 
+        public void Update(string recipeName, string username, TimeSpan cookTime, TimeSpan prepTime, List<ApplianceDTO> appliances, List<IngredientDTO> ingredients, List<InstructionsDTO> instructions)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

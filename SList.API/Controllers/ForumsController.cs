@@ -20,17 +20,70 @@ namespace SList.API.Controllers
             _forumAppService = forumAppService;
 
         }
-        
         [HttpGet]
-        public ForumDTO Get([FromQuery] string forumpost) => _forumAppService.Get(forumpost);
-        
+        [Route("{title}")]
+        public ForumDTO Get(
+            [FromRoute] string title,
+            [FromQuery] string username,
+            [FromQuery] string password)
+                => _forumAppService.Get(
+                    title,
+                    username,
+                    password);
         [HttpPost]
-        [Route("post_forum")]
-        public void Add([FromQuery] ForumDTO forum) => _forumAppService.Add(forum);
-
+        [Route("{title}/update")]
+        public void Update(
+            [FromRoute] string title,
+            [FromQuery] string username,
+            [FromQuery] string password,
+            [FromQuery] string newName)
+                => _forumAppService.Update(
+                    title,
+                    username,
+                    password, 
+                    newName);
         [HttpPost]
-        [Route("edit_forum")]
-        public void EditForum([FromQuery] string forumpost) => _forumAppService.EditForum(forumpost);
+        [Route("add/{title}")]
+        public void Add(
+            [FromRoute] string title,
+            [FromQuery] string content,
+            [FromQuery] string username,
+            [FromQuery] string password) 
+                => _forumAppService.Add(
+                    title,
+                    content,
+                    username,
+                    password);
+        [HttpPost]
+        [Route("{title}/comments/add")]
+        public void AddComment(
+            [FromRoute] string title,
+            [FromQuery] string username,
+            [FromQuery] string password,
+            [FromQuery] string commentContent, 
+            [FromQuery] string parentContent) 
+                => _forumAppService.AddComment(
+                    title, 
+                    username,
+                    password,
+                    commentContent, 
+                    parentContent);
+        [HttpPost]
+        [Route("{title}/comments/update")]
+        public void UpdateComment(
+            [FromRoute] string title,
+            [FromQuery] string username, 
+            [FromQuery] string password, 
+            [FromQuery] string commentContent, 
+            [FromQuery] string parentContent,
+            [FromQuery] string updatedContent) 
+                => _forumAppService.UpdateComment(
+                    title,
+                    username,
+                    password, 
+                    commentContent, 
+                    parentContent,
+                    updatedContent);
 
     }
 }

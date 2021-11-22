@@ -39,6 +39,36 @@ namespace SList.Infrastructure.Repositories
             };
         }
 
+        public void AddPantry(string pantryName, List<Appliance> appliances, List<Ingredient> ingredients, string username)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ChangePasswordByEmail(string password, string email)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void ChangePasswordByUsername(string password, string username)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteAccount(string username)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Pantry FindPantry(string pantryName, string username)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Recipe> FindRecipesByUser(string username)
+        {
+            throw new NotImplementedException();
+        }
+
         public User Get(string username, string password)
         {
             using var ctx = _contextFactory.CreateDbContext();
@@ -49,17 +79,17 @@ namespace SList.Infrastructure.Repositories
                 .FirstOrDefault();
         }
 
-        public IEnumerable<Pantry> GetPantries(string username, string email, params string[] pantryNames)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Recipe> GetRecipes(string username, string email, params string[] pantryNames)
+        public IEnumerable<Pantry> GetPantries(string username)
         {
             throw new NotImplementedException();
         }
 
         public void Update(string username, string email, string firstName, string lastName, string password, DateTime updatedAt)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdatePantry(string pantryName, List<Appliance> appliances, List<Ingredient> ingredients, string username)
         {
             throw new NotImplementedException();
         }

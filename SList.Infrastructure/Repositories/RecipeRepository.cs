@@ -24,7 +24,7 @@ namespace SList.Infrastructure.Repositories
             throw new NotImplementedException();
         }
 
-        public Recipe Get(string name)
+        public Recipe FindRecipesByName(string name)
         {
             throw new NotImplementedException();
         }

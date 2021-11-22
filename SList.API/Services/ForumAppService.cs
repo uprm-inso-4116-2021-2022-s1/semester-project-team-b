@@ -16,17 +16,28 @@ namespace SList.API.Services
         {
             _forumRepository = forumRepository;
         }
-        public void Add(ForumDTO forum)
+
+        public void Add(string title, string content, string username, string password)
         {
             throw new NotImplementedException();
         }
 
-        public void EditForum(string forum)
+        public void AddComment(string title, string username, string password, string commentContent, string parentContent)
         {
             throw new NotImplementedException();
         }
 
-        public ForumDTO Get(string forumpost)
+        public ForumDTO Get(string title, string username, string password)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(string title, string username, string password, string newName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateComment(string title, string username, string password, string commentContent, string parentContent, string updatedContent)
         {
             throw new NotImplementedException();
         }

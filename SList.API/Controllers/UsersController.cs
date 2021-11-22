@@ -27,8 +27,10 @@ namespace SList.API.Controllers
         /// <param name="username"></param>
         /// <param name="password"></param>
         /// <returns></returns>
+        [Route("{username}")]
         [HttpGet]
-        public UserDTO Get([FromQuery] string username, [FromQuery] string password) => _userAppService.Get(username, password);
+        public UserDTO Get([FromRoute] string username, [FromQuery] string password) => 
+            _userAppService.Get(username, password);
 
         /// <summary>
         /// Create new user
@@ -36,19 +38,31 @@ namespace SList.API.Controllers
         /// <param name="user"></param>
         [HttpPost]
         [Route("add")]
-        public void Add([FromQuery] UserDTO user) => _userAppService.Add(user);
+        public void Add([FromBody] UserDTO user) => 
+            _userAppService.Add(user);
 
         /// <summary>
-        /// Changes password
+        /// Changes password for resigtered user
         /// </summary>
         /// <param name="password"></param>
+        /// <param name="email"></param>
         [HttpPost]
-        [Route("edit_password")]
-        public void EditPassword([FromQuery] string password) => _userAppService.EditPassword(password);
-
+        [Route("{email}/change_password")]
+        public void changePasswordByEmail([FromQuery] string password, [FromRoute] string email) => 
+            _userAppService.ChangePasswordByEmail(password, email);
+        /// <summary>
+        /// Changes password for resigtered email
+        /// </summary>
+        /// <param name="password"></param>
+        /// <param name="username"></param>
+        [HttpPost]
+        [Route("{username}/change_password")]
+        public void changePasswordByUsername([FromQuery] string password, [FromRoute] string username) => 
+            _userAppService.ChangePasswordByUsername(password, username);
         [HttpDelete]
-        [Route("delete_account")]
-        public void DeleteAccount([FromQuery] string username) => _userAppService.DeleteAccount(username);
+        
+        [Route("{username}/delete_account")]
+        public void DeleteAccount([FromRoute] string username) => _userAppService.DeleteAccount(username);
 
         /// <summary>
         /// Creates a pantry with list of appliances and ingredients
@@ -57,13 +71,13 @@ namespace SList.API.Controllers
         /// <param name="appliances"></param>
         /// <param name="ingredients"></param>
         [HttpPost]
-        [Route("add_pantry")]
+        [Route("{username}/pantries/add")]
         public void AddPantry([FromQuery] string pantryName,
             [FromQuery] List<ApplianceDTO> appliances,
             [FromQuery] List<IngredientDTO> ingredients)
                 => _userAppService.AddPantry(pantryName,
-                                                appliances,
-                                                ingredients);
+                    appliances,
+                    ingredients);
 
         /// <summary>
         /// Updates existing pantry
@@ -71,23 +85,47 @@ namespace SList.API.Controllers
         /// <param name="pantryName"></param>
         /// <param name="appliances"></param>
         /// <param name="ingredients"></param>
+        /// <param name="username"></param>
         [HttpPost]
-        [Route("update_pantry")]
+        [Route("{username}/pantries/update")]
         public void UpdatePantry([FromQuery] string pantryName,
             [FromQuery] List<ApplianceDTO> appliances,
-            [FromQuery] List<IngredientDTO> ingredients)
-                => _userAppService.UpdatePantry(pantryName,
-                                                    appliances,
-                                                    ingredients);
-
+            [FromQuery] List<IngredientDTO> ingredients,
+            [FromRoute] string username)
+                => _userAppService.UpdatePantry(
+                    pantryName,
+                    appliances,
+                    ingredients,
+                    username);
 
         /// <summary>
         /// Find existing pantries
         /// </summary>
         /// <param name="pantryName"></param>
+        /// <param name="username"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("get_pantry")]
-        public PantryDTO findPantry([FromQuery] string pantryName) => _userAppService.findPantry(pantryName);
+        [Route("{username}/pantries/{pantryName}")]
+        public PantryDTO FindPantry([FromQuery] string pantryName, [FromRoute] string username)
+            => _userAppService.FindPantry(pantryName, username);
+        /// <summary>
+        /// Find existing pantries
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("{username}/pantries")]
+        public IEnumerable<PantryDTO> GetPantries([FromRoute] string username)
+            => _userAppService.GetPantries(username).ToList();
+
+        /// <summary>
+        /// Find existing recipes for user
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("{username}/recipes")]
+        public List<RecipeDTO> FindRecipesByUser([FromRoute] string username) 
+            => _userAppService.FindRecipesByUser(username).ToList();
     }
 }

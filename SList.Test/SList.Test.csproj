@@ -35,8 +35,4 @@
     <ProjectReference Include="..\SList.Infrastructure\SList.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Application\" />
-  </ItemGroup>
-
 </Project>

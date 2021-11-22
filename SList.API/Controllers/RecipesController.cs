@@ -22,13 +22,14 @@ namespace SList.API.Controllers
         }
 
         /// <summary>
-        /// Gets the recipe according its name
+        /// Gets the recipes according its name
         /// </summary>
         /// <param name="recipeName"></param>
         /// <returns></returns>
         [HttpGet]
-        public RecipeDTO Get([FromQuery] string recipeName)
-            => _recipeAppService.Get(recipeName);
+        [Route("{recipeName}")]
+        public List<RecipeDTO> FindRecipesByName([FromRoute] string recipeName)
+            => _recipeAppService.FindRecipesByName(recipeName);
 
         /// <summary>
         /// Gets list of recipes according to appliances and/or ingredients
@@ -37,30 +38,42 @@ namespace SList.API.Controllers
         /// <param name="ingredients"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("find_recipes")]
+        [Route("find")]
         public List<RecipeDTO> FindRecipes(
             [FromQuery] List<ApplianceDTO> appliances, 
             [FromQuery] List<IngredientDTO> ingredients)
             => _recipeAppService.FindRecipes(appliances, ingredients);
 
         /// <summary>
+        /// Gets list of recipes according to pantry items
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("find_by_pantry")]
+        public List<RecipeDTO> FindRecipesByPantry(PantryDTO pantry)
+            => _recipeAppService.FindRecipesByPantry(pantry);
+
+        /// <summary>
         /// Adds a new recipe
         /// </summary>
         /// <param name="recipeName"></param>
+        /// <param name="username"></param>s
         /// <param name="cookTime"></param>
         /// <param name="prepTime"></param>
         /// <param name="appliances"></param>
         /// <param name="ingredients"></param>
         /// <param name="instructions"></param>
         [HttpPost]
-        [Route("add_recipe")]
+        [Route("add")]
         public void Add([FromQuery] string recipeName,
+            [FromQuery] string username,
             [FromQuery] TimeSpan cookTime,
             [FromQuery] TimeSpan prepTime,
             [FromQuery] List<ApplianceDTO> appliances,
             [FromQuery] List<IngredientDTO> ingredients,
             [FromQuery] List<InstructionsDTO> instructions)
                 => _recipeAppService.Add(recipeName,
+                    username,
                     cookTime,
                     prepTime,
                     appliances,
@@ -71,14 +84,16 @@ namespace SList.API.Controllers
         /// Updates an existing recipe
         /// </summary>
         /// <param name="recipeName"></param>
+        /// <param name="username"></param>
         /// <param name="cookTime"></param>
         /// <param name="prepTime"></param>
         /// <param name="appliances"></param>
         /// <param name="ingredients"></param>
         /// <param name="instructions"></param>
         [HttpPost]
-        [Route("update_recipe")]
-        public void Update([FromQuery] string recipeName,
+        [Route("{recipeName}/update")]
+        public void Update([FromRoute] string recipeName,
+            [FromQuery] string username,
             [FromQuery] TimeSpan cookTime,
             [FromQuery] TimeSpan prepTime,
             [FromQuery] List<ApplianceDTO> appliances,
@@ -86,6 +101,7 @@ namespace SList.API.Controllers
             [FromQuery] List<InstructionsDTO> instructions)
                 => _recipeAppService.Update(
                     recipeName,
+                    username,
                     cookTime,
                     prepTime,
                     appliances,

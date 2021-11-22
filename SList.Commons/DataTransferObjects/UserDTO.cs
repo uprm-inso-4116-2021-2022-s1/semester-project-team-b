@@ -9,10 +9,10 @@ namespace SList.Commons.DataTransferObjects
     {
         public UserDTO()
         {
-            Comments = new HashSet<CommentDTO>();
-            Forums = new HashSet<ForumDTO>();
-            Pantries = new HashSet<PantryDTO>();
-            Recipes = new HashSet<RecipeDTO>();
+            Comments = new List<CommentDTO>();
+            Forums = new List<ForumDTO>();
+            Pantries = new List<PantryDTO>();
+            Recipes = new List<RecipeDTO>();
         }
         public string Username { get; set; }
         public string Email { get; set; }
@@ -21,10 +21,10 @@ namespace SList.Commons.DataTransferObjects
         public string LastName { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; internal set; }
-        public virtual ICollection<CommentDTO> Comments { get; set; }
-        public virtual ICollection<ForumDTO> Forums { get; set; }
-        public virtual ICollection<PantryDTO> Pantries { get; set; }
-        public virtual ICollection<RecipeDTO> Recipes { get; set; }
+        public virtual IEnumerable<CommentDTO> Comments { get; set; }
+        public virtual IEnumerable<ForumDTO> Forums { get; set; }
+        public virtual IEnumerable<PantryDTO> Pantries { get; set; }
+        public virtual IEnumerable<RecipeDTO> Recipes { get; set; }
         
     }
 }
